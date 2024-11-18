@@ -1,0 +1,307 @@
+body {
+  font-family: "Kumbh Sans", sans-serif !important;
+  margin: 0;
+  padding: 0;
+  color: #000000 !important;
+  overflow-x: hidden;
+  height: 95vh;
+  width: 100vw;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 200px;
+  border-bottom: 1px solid #ccc;
+  width: 100vw;
+  background-color: #fff;
+}
+
+header nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+header .logo {
+  font-family: "Macondo Swash Caps", cursive;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.inputs {
+  width: 100px;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.9em;
+  caret-color: rgb(0, 0, 0);
+}
+
+
+.logoimg {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.usericon {
+  width: 30px;
+  margin-left: 10px;
+}
+
+.hero {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.buttonhero {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 25px;
+  font-size: 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.buttonhero .text {
+  margin-right: 30px;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.buttonhero .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  color: #000;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  position: absolute;
+  right: 6px;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.buttonhero:hover .icon {
+  width: 167px;
+  height: 30px;
+  border-radius: 253px;
+}
+
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #000;
+  border-top: 1px solid #fff;
+  color: #fff;
+}
+
+.footer div {
+  flex: 1;
+  text-align: center;
+}
+
+.footer .center p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.footer .center .social-icons {
+  margin-top: 10px;
+}
+
+.footer .center .social-icons a {
+  margin: 0 10px;
+  color: #fff;
+  font-size: 24px;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 14px;
+  background-color: #fff;
+  color: #000;
+}
+
+.logofooter {
+  font-family: "Macondo Swash Caps", cursive;
+  font-size: 40px;
+}
+
+.imgtikita {
+  width: 30px;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-box {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  width: 350px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 40px;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+}
+
+.login-box .social-login button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+  font-size: 14px;
+}
+
+.login-box .divider {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.login-box .divider::before,
+.login-box .divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.login-box .divider span {
+  margin: 0 10px;
+}
+
+.login-box .signup-link {
+  margin-top: 10px;
+}
+
+.login-box .signup-link a {
+  color: #000;
+}
+
+.input-control {
+  position: relative;
+}
+
+.error {
+  position: absolute;
+  left: 2;
+  bottom: -6px;
+  color: rgb(95, 0, 0);
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+
+
+.btniniciar {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btniniciar:hover {
+  background-color: #fff;
+  color: #000; 
+  box-shadow: inset 0 0 0 1px #000; /* Agregar el borde interno */
+} 
+
+.btniniciar:active {
+  transform: scale(0.95); /* Reducir el tamaño del botón al presionar */
+  box-shadow: inset 0 0 0 1px #000; /* Aumentar el borde interno al presionar */
+  background-color: #cfcfcf;
+  color: #000;
+}
+
+.btniniciarrs {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btniniciarrs:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;  
+} 
+
+.btniniciarrs:active {
+  transform: scale(0.95) !important; /* Reducir el tamaño del botón al presionar */ 
+  background-color: #181818 !important;
+  color: #ffffff !important;
+}

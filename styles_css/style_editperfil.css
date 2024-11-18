@@ -1,0 +1,323 @@
+/*
+.kumbh-sans-<uniquifier> {
+  font-family: "Kumbh Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "YOPQ" 300;
+}
+.macondo-swash-caps-regular {
+    font-family: "Macondo Swash Caps", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+   */
+
+   body {
+    font-family: "Kumbh Sans", sans-serif !important;
+    margin: 0;
+    color: #000000 !important;
+    overflow-x: hidden;
+    
+  
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 200px;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    background-color: #fff;
+  }
+  
+  header nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  header .logo {
+    font-family: "Macondo Swash Caps", cursive;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .search-login {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .InputContainer {
+    border: 1px solid #868686 !important;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    padding-left: 15px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+  }
+  
+  .inputs {
+    width: 100px;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 0.9em;
+    caret-color: rgb(0, 0, 0);
+  }
+
+ 
+  
+  .labelforsearch {
+    cursor: text;
+    padding: 0px 12px;
+  }
+  
+  .searchIcon {
+    width: 13px;
+    padding-bottom: 5px;
+  }
+  
+  .searchIcon path {
+    fill: rgb(114, 114, 114);
+  }
+  
+  .logoimg {
+    width: 40px;
+    margin-right: 10px;
+  }
+  
+  .usericon {
+    width: 30px;
+    margin-left: 10px;
+  }
+  
+  .profile-img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #000;
+    border-top: 1px solid #fff;
+    color: #fff;
+  }
+  
+  .footer div {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .footer .center p {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .footer .center .social-icons {
+    margin-top: 10px;
+  }
+  
+  .footer .center .social-icons a {
+    margin: 0 10px;
+    color: #fff;
+    font-size: 24px;
+  }
+  
+  footer a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .copyright {
+    text-align: center;
+    font-size: 14px;
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .logofooter {
+    font-family: "Macondo Swash Caps", cursive;
+    font-size: 40px;
+  }
+  
+  .imgtikita {
+    width: 30px;
+  }
+  
+  section {
+    width: 100%;
+    height: 100%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+  }
+  
+
+.profile-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 25px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic img::before {
+    content: "\f040";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 40px;
+    color: #fff;
+}
+
+.profile-pic span {
+    margin-top: 10px;
+    color: #666;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc !important;
+    background-color: #e0e0e0;
+}
+
+input, textarea {
+    border: 1px solid #ccc;
+    outline: none; 
+}
+
+input:focus, textarea:focus {
+   border: 1px solid #a8a8a8 !important;
+}
+
+
+.form-group.half {
+    width: 48%;
+    display: inline-block;
+}
+
+.form-group.half:nth-child(odd) {
+    margin-right: 4%;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.buttons .save {
+    background-color: #000;
+    color: #fff;
+    border-radius: 100px;
+}
+
+.buttons .cancel {
+    background-color: transparent;
+    color: #000;
+}
+
+
+.btnsave{
+  text-decoration: none !important;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btnsave:hover {
+  background-color: #fff;
+  color: #000; 
+  box-shadow: inset 0 0 0 1px #000; 
+} 
+
+.btnsave:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 0 0 1px #000;
+  background-color: #cfcfcf;
+  color: #000;
+}
+
+
+.btncerrar{
+  margin-top: 20px;
+  background-color: rgb(230, 59, 59);
+  color: #fff !important;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btncerrar:hover {
+  background-color: rgb(255, 63, 63);
+  color: #ffffff !important; 
+  transform: scale(1.05);
+} 
+.btncerrar:active {
+  background-color: rgb(175, 46, 46);
+  transform: scale(1);
+  color: #ffffff !important;
+}
+
+
+abtncerrar
+
+
+.abtncerrar{
+  color: #fff !important;
+}

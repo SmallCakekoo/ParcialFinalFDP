@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="SmallCakeko">
+    <meta name="keywords" content="keyword">
+    <meta name="description" content="ajdlkad">
+    <link rel="shortcut icon" href="img/logo1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles_css/style_form.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Macondo+Swash+Caps&display=swap"
+        rel="stylesheet">
+    <title>ArtBoard | Formulario</title>
+    <script src="javascripts_js/verificarSesion.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/animate.css">
+
+</head>
+
+<body>
+
+    <header class="sticky-top">
+
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="logo col-lg-4 col-md-4 col-sm-12 text-center text-md-start">
+
+                    <a href="index.html" style="text-decoration: none; color: black;"> <img class="logoimg"
+                            src="img/logo2.png" alt=""> ArtBoard</a>
+                </div>
+                <nav class="col-lg-4 col-md-4 d-none d-md-flex justify-content-center">
+                    <a href="index.html">
+                        Inicio
+                    </a>
+                    <a href="tienda.html">
+                        Tienda
+                    </a>
+                </nav>
+                <div class="search-login col-lg-4 col-md-4 col-sm-12 d-flex justify-content-end">
+                    <a href="#" id="userIconLink">
+                        <img class="usericon" src="img/usericon.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <section>
+        <div class="container wow animate__animated animate__fadeIn">
+            <h1 style="font-weight: bolder;">
+                Únete a nosotros
+            </h1>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-container">
+                        <form>
+                            <div class="input-group">
+                                <input required="" type="text" name="text" autocomplete="off"  class="input">
+                                <label class="user-label">Nombre Completo</label>
+                            </div>
+
+                            <div class="input-group">
+                                <input required="" type="text" name="text" autocomplete="off" class="input">
+                                <label class="user-label">Número de Télefono</label>
+                            </div>
+
+                            <div class="input-group">
+                                <input required="" type="text" name="text" autocomplete="off" class="input">
+                                <label class="user-label">Correo Electrónico</label>
+                            </div>
+
+                            <div class="input-group">
+                                <input required="" type="text" name="text" autocomplete="off" class="input">
+                                <label class="user-label">País</label>
+                            </div>
+                    
+                            <textarea placeholder="Mensaje"></textarea>
+
+                            <div class="file-upload" id="file-upload">
+                                <img class="fileup" src="img/file2.png" alt="Icono de carga">
+                                <p>Arrastra el archivo hasta aquí o presiona el botón</p>
+                                <input type="file" id="file-input" multiple>
+                            </div>
+
+                            <button type="submit">
+                                Enviar Formulario
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="image-container"></div>
+                    <img alt="Illustration" src="img/imagen17.png" width="500" height="500"/>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="footer">
+            <div class="left">
+                <div class="logofooter">
+                    <a href="index.html" style="color: white !important;">
+                        <img class="logoimg" src="img/logo1.png" alt=""> ArtBoard</a>
+                </div>
+            </div>
+            <div class="center">
+                <p>Herramientas Creativas al alcance de tu mano.</p>
+                <div class="social-icons">
+                    <a href="#"><img src="img/instagram.png" alt=""></a>
+                    <a href="#"><img src="img/facebook.png" alt="" class="imgtikita"></a>
+                    <a href="#"><img src="img/tiktok.png" alt=""></a>
+                    <a href="#"><img src="img/youtube.png" alt="" class="imgtikita"></a>
+                </div>
+            </div>
+            <div class="right" style="font-family: Macondo Swash Caps , cursive;">
+                <a href=" #"><span style="color: white; font-size: 24px !important;" >Volver Arriba</span></a>
+            </div>
+        </div>
+        <div class="copyright " style="text-align: center; ">
+            © 2024 ArtBoard Inc.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js "
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz "
+        crossorigin="anonymous "></script>
+
+
+    <script src="js/wow.min.js"></script>
+    <script src="javascripts_js/form.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+</body>
+
+
+</html>
