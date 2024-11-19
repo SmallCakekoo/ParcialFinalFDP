@@ -287,22 +287,3 @@ let data = [tecno, materialDibujo, papeleria, accesoriosComputadora, herramienta
 // console.log(data)
 
 // En lugar de blow colocar raw y te da la img
-
-
-// fetch("https://raw.githubusercontent.com/SmallCakekoo/ParcialFinalFDP/refs/heads/main/javascripts_js/data.json")
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error("Network response was not ok");
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         // Aquí puedes usar los datos de la API
-//         console.log(data); // Muestra los datos en la consola para verificar que se han cargado correctamente
-
-//         // Si necesitas usar los datos en otras partes de tu código, puedes asignarlos a una variable global
-//         window.productData = data; // Asigna los datos a una variable global para que sea accesible en otras partes del código
-//     })
-//     .catch(error => {
-//         console.error("There was a problem with the fetch operation:", error);
-//     });

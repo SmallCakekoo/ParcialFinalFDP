@@ -1,13 +1,21 @@
-// Selecciona el contenedor de productos en el HTML
+// Seleccionamos el contenedor de productos en el DOM
 const productsContainer = document.querySelector('.products');
 
-// Función para seleccionar productos aleatorios
+// Función que selecciona productos aleatorios de un conjunto de datos
 function seleccionarProductosAleatorios(data, cantidad) {
+    // Inicializamos un array para almacenar los productos aleatorios seleccionados
     const productosAleatorios = [];
+    // Hacemos una copia de los productos disponibles para que no alteremos el array original
     const productosDisponibles = [...data].flat(); 
+    
+    // Iteramos para seleccionar la cantidad deseada de productos aleatorios
     for (let i = 0; i < cantidad; i++) {
+        // Seleccionamos un índice aleatorio dentro de los productos disponibles
         const indice = Math.floor(Math.random() * productosDisponibles.length);
+        // Extraemos el producto correspondiente al índice aleatorio seleccionado
         const producto = productosDisponibles.splice(indice, 1)[0]; 
+        
+        // Creamos un nuevo objeto Producto con las propiedades del producto seleccionado
         productosAleatorios.push(new Product(
             producto.id,
             producto.nombre,
@@ -19,49 +27,54 @@ function seleccionarProductosAleatorios(data, cantidad) {
             producto.descripcion
         ));
     }
+    // Retornamos el array de productos aleatorios
     return productosAleatorios;
 }
 
-// Renderiza productos en el contenedor HTML
+// Función para renderizar los productos seleccionados en el contenedor HTML
 function renderizarProductos(productos) {
+    // Generamos el HTML de las tarjetas de productos usando el método cardHtml() de cada producto
     const html = productos.map(producto => producto.cardHtml()).join('');
+    // Insertamos el HTML generado en el contenedor de productos
     productsContainer.innerHTML = html;
 }
 
-// Selecciona y renderiza productos aleatorios
+// Seleccionamos 4 productos aleatorios de los datos disponibles y los renderizamos
 const productosAleatorios = seleccionarProductosAleatorios(data, 4);
 renderizarProductos(productosAleatorios);
 
-// Configuración de búsqueda en el input
+// Seleccionamos el campo de búsqueda en el DOM
 const searchInput = document.getElementById('inputs');
+// Añadimos un evento que se dispara cuando el usuario presiona una tecla dentro del campo de búsqueda
 searchInput.addEventListener('keydown', function(event) {
+    // Si la tecla presionada es 'Enter'
     if (event.key === 'Enter') {
+        // Obtenemos el término de búsqueda ingresado por el usuario
         const searchTerm = searchInput.value.trim();
+        // Si el término de búsqueda no está vacío, redirigimos a la página de tienda con el término como parámetro
         if (searchTerm) {
             window.location.href = `tienda.html?search=${searchTerm}`;
         }
     }
 });
 
-// Redirige a la página de detalles del producto con el ID en la URL
+// Función que maneja la acción de selección de un producto
 function productSelected(id) {
+    // Redirigimos a la página de detalle del producto, pasando su ID como parámetro
     window.location.href = `./detalleproducto.html?id=${id}`;
 }
 
-
+// Función que maneja la acción de "me gusta" en un producto
 function likeProduct(id, event) {
-  event.stopPropagation();
+    // Detenemos la propagación del evento para evitar que se dispare algún otro evento relacionado
+    event.stopPropagation();
 
-  const button = event.currentTarget; // Obtén el botón que se presionó
+    // Obtenemos el botón donde se hizo clic
+    const button = event.currentTarget; 
 
-  // Alternar la clase 'liked'
-  button.classList.toggle('liked');
+    // Alternamos la clase 'liked' en el botón para indicar si el producto fue marcado como favorito o no
+    button.classList.toggle('liked');
 
-  // Si en algún momento necesitas usar el id, puedes hacerlo aquí
-  console.log("Producto ID:", id); // Por ahora, solo para mostrar el id en consola
+    // Imprimimos en consola el ID del producto al que se le dio "me gusta"
+    console.log("Producto ID:", id); 
 }
-
-
-
-
-
