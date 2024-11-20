@@ -21,9 +21,9 @@ class Product {
                         <div class="product-name">${this.nombre}</div>
                         <div class="product-price">$${this.precio} COP</div>
                         <div class="product-buttons">
-                            <button class="like-button" onclick="likeProduct(${this.id}, event)">
-                                <img src="img/love2.png" alt="Me gusta" class="like-icon"> Me gusta
-                            </button>
+                            <button class="like-button" data-id="${this.id}" onclick="likeProduct(${this.id}, event)">
+    <img src="img/love2.png" alt="Me gusta" class="like-icon"> Me gusta
+</button>
                             <button class="cart-button">
                                 <img src="img/cart2.png" alt="Añadir al Carrito" class="cart-icon"> Comprar Ahora
                             </button>

@@ -3,15 +3,24 @@ let products = [];
 
 // Función que convierte los datos de entrada en objetos de tipo Producto y los agrega al array 'products'
 function parseDataToProducts() {
-    // Iterar sobre las categorías de productos
-    for (let i = 0; i < data.length; i++) {
-        let categoria = data[i];
-        // Iterar sobre los productos dentro de cada categoría
-        for (let j = 0; j < categoria.length; j++) {
-            let productData = categoria[j];
-            // Crear un nuevo objeto Producto y agregarlo al array 'products'
+    if (!globalData) {
+        console.error('No se han cargado los datos aún.');
+        return;
+    }
+
+    for (let category in globalData) {
+        let categoria = globalData[category];
+        for (let productData of categoria) {
             let product = new Product(
-                productData.id, productData.nombre, productData.marca, productData.precio, productData.disponible, productData.rating, productData.imagen, productData.descripcion);
+                productData.id,
+                productData.nombre,
+                productData.marca,
+                productData.precio,
+                productData.disponible,
+                productData.rating,
+                productData.imagen,
+                productData.descripcion
+            );
             products.push(product);
         }
     }
@@ -19,115 +28,148 @@ function parseDataToProducts() {
 
 // Función que renderiza todos los productos en el contenedor de la página
 function renderAllProducts() {
-    // Obtener el contenedor de productos
     let container = document.getElementById("productos");
-    container.innerHTML = "";  // Limpiar el contenedor antes de agregar los nuevos productos
+    container.innerHTML = ""; // Limpiar el contenedor
 
-    // Iterar sobre el array de productos y renderizarlos en la página
-    for (let i = 0; i < products.length; i++) {
-        let product = products[i];
-        // Agregar el HTML de cada producto al contenedor
+    products.forEach((product) => {
         container.innerHTML += product.cardHtml();
-        // Agregar un evento de clic al elemento del producto
-        let productElement = container.children[i];
-        productElement.addEventListener("click", function() {
-            // Redirigir a la página de detalle del producto cuando se hace clic
-            productSelected(product.id);
+    });
+
+    // Agregar eventos de clic para productos y corazones
+    container.querySelectorAll(".containermayor").forEach((productElement, index) => {
+        // Evento para redirigir a la página de detalle
+        productElement.addEventListener("click", (event) => {
+            // Verificar si el clic fue en el corazón o carrito
+            if (!event.target.classList.contains("corazonlogoproducto") && !event.target.classList.contains("carritologoproducto")) {
+                productSelected(products[index].id);
+            }
         });
-    }
+
+        // Evento para manejar "me gusta" en el corazón
+        let heartIcon = productElement.querySelector(".corazonlogoproducto");
+        heartIcon.addEventListener("click", (event) => {
+            likeProduct(products[index].id, event);
+        });
+    });
 }
 
 // Función que redirige a la página de detalle del producto seleccionado
 function productSelected(id) {
-    window.location = "./detalleproducto.html?id=" + id;
-}
-
-// Ejecutar la función para convertir los datos a productos y renderizarlos
-parseDataToProducts();
-renderAllProducts();
-
-// Obtener el campo de búsqueda y agregar un evento para filtrar productos a medida que se escribe
-let searchInput = document.getElementById("search-input");
-
-searchInput.addEventListener("input", function() {
-    let searchTerm = searchInput.value.toLowerCase();
-    // Filtrar los productos que coinciden con el término de búsqueda
-    let filteredProducts = products.filter(function(product) {
-        return product.nombre.toLowerCase().includes(searchTerm) || product.descripcion.toLowerCase().includes(searchTerm);
-    });
-    renderFilteredProducts(filteredProducts);  // Mostrar los productos filtrados
-});
-
-// Función para renderizar los productos filtrados
-function renderFilteredProducts(filteredProducts) {
-    let container = document.getElementById("productos");
-    let noResultsMessage = document.getElementById("no-results-message");
-    container.innerHTML = "";  // Limpiar el contenedor de productos
-
-    // Mostrar un mensaje si no hay productos que coincidan con la búsqueda
-    if (filteredProducts.length === 0) {
-        noResultsMessage.style.display = "block";
-    } else {
-        noResultsMessage.style.display = "none";
-        // Renderizar los productos filtrados
-        for (let i = 0; i < filteredProducts.length; i++) {
-            let product = filteredProducts[i];
-            container.innerHTML += product.cardHtml();
-            let productElement = container.children[i];
-            productElement.addEventListener("click", function() {
-                productSelected(product.id);  // Redirigir a la página de detalle al hacer clic
-            });
-        }
-    }
-}
-
-// Verificar si hay un término de búsqueda en la URL y filtrarlo
-const urlParams = new URLSearchParams(window.location.search);
-const searchTerm = urlParams.get('search');
-
-if (searchTerm) {
-    const searchInput = document.getElementById('search-input');
-    searchInput.value = searchTerm;
-
-    // Filtrar los productos según el término de búsqueda en la URL
-    let filteredProducts = products.filter(function(product) {
-        return product.nombre.toLowerCase().includes(searchTerm.toLowerCase()) || product.descripcion.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-    renderFilteredProducts(filteredProducts);
+    window.location = `./detalleproducto.html?id=${id}`;
 }
 
 // Función para agregar o quitar productos de la lista de "me gusta"
 function likeProduct(id, event) {
-    event.stopPropagation();  // Prevenir que el evento de clic se propague
+    event.stopPropagation(); // Evitar propagación al contenedor padre
+    const heartIcon = event.target;
 
-    const corazon = event.target;
-
-    // Alternar la clase 'activo' para el ícono de corazón
-    if (corazon.classList.contains('activo')) {
-        corazon.classList.remove('activo');
-    } else {
-        corazon.classList.add('activo');
+    const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+    if (!usuarioLogueado) {
+        window.location.href = 'iniciarseccion.html';
+        return; 
     }
 
-    // Obtener los productos que el usuario ha marcado como "me gusta" desde el almacenamiento local
-    const likedProducts = JSON.parse(localStorage.getItem('likedProducts')) || [];
+    // Alternar clase activa
+    heartIcon.classList.toggle("activo");
+
+    // Gestionar almacenamiento local con la clave específica
+    const userEmail = getUserEmail(); // Asegúrate de tener una función para obtener el email del usuario
+    const storageKey = `${userEmail}_likedProducts`;
+
+    let likedProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
     if (likedProducts.includes(id)) {
-        likedProducts.splice(likedProducts.indexOf(id), 1);  // Quitar de la lista de "me gusta"
+        likedProducts = likedProducts.filter((productId) => productId !== id);
     } else {
-        likedProducts.push(id);  // Agregar a la lista de "me gusta"
+        likedProducts.push(id);
     }
-    localStorage.setItem('likedProducts', JSON.stringify(likedProducts));  // Guardar la lista de "me gusta" en el almacenamiento local
+
+    localStorage.setItem(storageKey, JSON.stringify(likedProducts));
 }
 
-// Función que se ejecuta al cargar la página para mostrar los productos "me gusta" previamente guardados
-window.onload = function() {
-    const likedProducts = JSON.parse(localStorage.getItem('likedProducts')) || [];
-  
-    likedProducts.forEach(id => {
-        const corazon = document.querySelector(`.corazonlogoproducto[data-id="${id}"]`);
-        if (corazon) {
-            corazon.classList.add('activo');
-            corazon.style.backgroundColor = 'red';  // Cambiar color de corazón a rojo si está marcado como "me gusta"
+// Función que muestra el estado de los productos "me gusta" previamente guardados
+function restoreLikedProducts() {
+    const userEmail = getUserEmail(); // Obtener el email del usuario
+    const storageKey = `${userEmail}_likedProducts`;
+    const likedProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
+
+    likedProducts.forEach((id) => {
+        const heartIcon = document.querySelector(`.corazonlogoproducto[data-id="${id}"]`);
+        if (heartIcon) {
+            heartIcon.classList.add("activo");
         }
     });
-};
+}
+
+// Función para inicializar la página
+function init() {
+    parseDataToProducts();
+    renderAllProducts();
+    restoreLikedProducts();
+
+    // Manejar búsqueda si está en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTerm = urlParams.get("search");
+    if (searchTerm) {
+        const searchInput = document.getElementById("search-input");
+        searchInput.value = searchTerm;
+
+        const filteredProducts = products.filter((product) =>
+            product.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        renderFilteredProducts(filteredProducts);
+    }
+}
+
+// Función para renderizar productos filtrados
+function renderFilteredProducts(filteredProducts) {
+    let container = document.getElementById("productos");
+    let noResultsMessage = document.getElementById("no-results-message");
+    container.innerHTML = ""; // Limpiar el contenedor
+
+    if (filteredProducts.length === 0) {
+        noResultsMessage.style.display = "block";
+    } else {
+        noResultsMessage.style.display = "none";
+        filteredProducts.forEach((product) => {
+            container.innerHTML += product.cardHtml();
+        });
+
+        container.querySelectorAll(".containermayor").forEach((productElement, index) => {
+            // Redirigir al detalle del producto
+            productElement.addEventListener("click", (event) => {
+                // Verificar si el clic fue en el corazón o carrito
+                if (!event.target.classList.contains("corazonlogoproducto") && !event.target.classList.contains("carritologoproducto")) {
+                    productSelected(filteredProducts[index].id);
+                }
+            });
+
+            // Manejar "me gusta"
+            let heartIcon = productElement.querySelector(".corazonlogoproducto");
+            heartIcon.addEventListener("click", (event) => {
+                likeProduct(filteredProducts[index].id, event);
+            });
+        });
+    }
+}
+
+// Esperar a que los datos se carguen antes de inicializar
+document.addEventListener("dataLoaded", init);
+
+// Manejar el input de búsqueda
+document.getElementById("search-input").addEventListener("input", function () {
+    const searchTerm = this.value.toLowerCase();
+    const filteredProducts = products.filter((product) =>
+        product.nombre.toLowerCase().includes(searchTerm) ||
+        product.descripcion.toLowerCase().includes(searchTerm)
+    );
+    renderFilteredProducts(filteredProducts);
+});
+
+// Restaurar productos "me gusta" al cargar la página
+window.onload = restoreLikedProducts;
+
+// Función para obtener el correo del usuario
+function getUserEmail() {
+    return localStorage.getItem("userEmail") || "guest";
+}

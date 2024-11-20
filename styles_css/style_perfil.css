@@ -19,10 +19,8 @@ body {
   margin: 0;
   color: #000000 !important;
   overflow-x: hidden;
-  
-
 }
-
+ 
 header {
   display: flex;
   justify-content: space-between;

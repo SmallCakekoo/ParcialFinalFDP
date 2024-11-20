@@ -21,7 +21,7 @@ body {
     color: #000000 !important;
     overflow-x: hidden;
 }
-
+  
 header {
     display: flex;
     justify-content: space-between;
@@ -167,6 +167,7 @@ header .logo {
     background-color: #000;
     border-top: 1px solid #fff;
     color: #fff;
+   width: 100vw !important;
 }
 
 .footer div {

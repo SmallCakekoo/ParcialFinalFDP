@@ -103,3 +103,4 @@ function createAccount() {
         window.location = "perfil.html"; // Redirige al perfil del usuario después del registro
     }
 }
+
