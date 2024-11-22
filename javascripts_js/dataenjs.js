@@ -1,3 +1,4 @@
+// Mantengo este archivo porque no sé si vaya a ser revisado, pero es lo mismo que contiene el data.json pero en js.
 let tecno = [
     {
         id: 1,

@@ -1,7 +1,7 @@
-// Seleccionamos el contenedor de productos en el DOM
+// Seleccionamos el contenedor de productos en el DOM.
 const productsContainer = document.querySelector('.products');
 
-// Función que selecciona productos aleatorios de un conjunto de datos
+// Función que selecciona productos aleatorios de un conjunto de datos.
 function seleccionarProductosAleatorios(data, cantidad) {
     const productosAleatorios = [];
     const productosDisponibles = Object.values(data).flat();
@@ -23,18 +23,18 @@ function seleccionarProductosAleatorios(data, cantidad) {
     return productosAleatorios;
 }
 
-// Función para renderizar los productos seleccionados en el contenedor HTML
+// Función para renderizar los productos seleccionados en el contenedor HTML.
 function renderizarProductos(productos) {
     const html = productos.map(producto => producto.cardHtml()).join('');
     productsContainer.innerHTML = html;
 }
 
-// Función que maneja la acción de selección de un producto
+// Función que maneja la acción de selección de un producto.
 function productSelected(id) {
     window.location.href = `./detalleproducto.html?id=${id}`;
 }
 
-// Función que maneja la acción de "me gusta" en un producto
+// Función que maneja la acción de "me gusta" en un producto.
 function likeProduct(id, event) {
     event.stopPropagation();
     const usuarioLogueado = localStorage.getItem('usuarioLogueado');
@@ -62,7 +62,7 @@ function likeProduct(id, event) {
     localStorage.setItem(`${correoUsuario}_likedProducts`, JSON.stringify(likedProducts));
 }
 
-// Nueva función para inicializar el estado de los botones de "me gusta"
+// Función para inicializar el estado de los botones de "me gusta"
 function initializeLikedButtons() {
     const usuarioLogueado = localStorage.getItem('usuarioLogueado');
     const correoUsuario = localStorage.getItem('userEmail');
@@ -79,15 +79,14 @@ function initializeLikedButtons() {
     }
 }
 
-// Llamar a la función al cargar los datos
+// Llamar a la función al cargar los datos.
 document.addEventListener('dataLoaded', () => {
     const productosAleatorios = seleccionarProductosAleatorios(globalData, 4);
     renderizarProductos(productosAleatorios);
     initializeLikedButtons();
 });
 
-
-// Seleccionamos el campo de búsqueda en el DOM
+// Seleccionamos el campo de búsqueda en el DOM.
 const searchInput = document.getElementById('inputs');
 searchInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {

@@ -1,4 +1,4 @@
-// Array que almacenará todos los productos
+// Array que almacenará todos los productos.
 let products = [];
 
 // Función que convierte los datos de entrada en objetos de tipo Producto y los agrega al array 'products'
@@ -26,44 +26,44 @@ function parseDataToProducts() {
     }
 }
 
-// Función que renderiza todos los productos en el contenedor de la página
+// Función que renderiza todos los productos en el contenedor de la página.
 function renderAllProducts() {
     let container = document.getElementById("productos");
-    container.innerHTML = ""; // Limpiar el contenedor
+    container.innerHTML = ""; 
 
     products.forEach((product) => {
         container.innerHTML += product.cardHtml();
     });
 
-    // Agregar eventos de clic para productos y corazones
+    // Agregar eventos de clic para productos y corazones.
     container.querySelectorAll(".containermayor").forEach((productElement, index) => {
-        // Evento para redirigir a la página de detalle
+        // Evento para redirigir a la página de detalle.
         productElement.addEventListener("click", (event) => {
-            // Verificar si el clic fue en el corazón o carrito
+            // Verificar si el clic fue en el corazón o carrito.
             if (!event.target.classList.contains("corazonlogoproducto") && !event.target.classList.contains("carritologoproducto")) {
                 productSelected(products[index].id);
             }
         });
 
-        // Evento para manejar "me gusta" en el corazón
+        // Evento para manejar "me gusta" en el corazón.
         let heartIcon = productElement.querySelector(".corazonlogoproducto");
         heartIcon.addEventListener("click", (event) => {
             likeProduct(products[index].id, event);
         });
     });
 
-    // Restaurar el estado de los productos "me gusta"
+    // Restaurar el estado de los productos "me gusta".
     restoreLikedProducts();
 }
 
-// Función que redirige a la página de detalle del producto seleccionado
+// Función que redirige a la página de detalle del producto seleccionado.
 function productSelected(id) {
     window.location = `./detalleproducto.html?id=${id}`;
 }
 
 // Función para agregar o quitar productos de la lista de "me gusta"
 function likeProduct(id, event) {
-    event.stopPropagation(); // Evitar propagación al contenedor padre
+    event.stopPropagation(); // Evitar propagación al contenedor padre.
     const heartIcon = event.target;
 
     const usuarioLogueado = localStorage.getItem('usuarioLogueado');
@@ -72,11 +72,11 @@ function likeProduct(id, event) {
         return; 
     }
 
-    // Alternar clase activa
+    // Alternar clase activa.
     heartIcon.classList.toggle("activo");
 
-    // Gestionar almacenamiento local con la clave específica
-    const correoUsuario = getcorreoUsuario(); // Asegúrate de tener una función para obtener el email del usuario
+    // Gestionar almacenamiento local con la clave específica.
+    const correoUsuario = getcorreoUsuario(); 
     const storageKey = `${correoUsuario}_likedProducts`;
 
     let likedProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
@@ -89,11 +89,11 @@ function likeProduct(id, event) {
     localStorage.setItem(storageKey, JSON.stringify(likedProducts));
 }
 
-// Función que muestra el estado de los productos "me gusta" previamente guardados
+// Función que muestra el estado de los productos "me gusta" previamente guardados.
 function restoreLikedProducts() {
     const usuarioLogueado = localStorage.getItem('usuarioLogueado');
     if (usuarioLogueado) {
-        const correoUsuario = getcorreoUsuario(); // Obtener el correo del usuario dentro de la función
+        const correoUsuario = getcorreoUsuario();
         const likedProducts = JSON.parse(localStorage.getItem(`${correoUsuario}_likedProducts`)) || [];
         likedProducts.forEach((id) => {
             const heartIcon = document.querySelector(`.corazonlogoproducto[data-id="${id}"]`);
@@ -104,12 +104,12 @@ function restoreLikedProducts() {
     }
 }
 
-// Función para inicializar la página
+// Función para inicializar la página.
 function init() {
     parseDataToProducts();
     renderAllProducts();
 
-    // Manejar búsqueda si está en la URL
+    // Manejar búsqueda si está en la URL.
     const urlParams = new URLSearchParams(window.location.search);
     const searchTerm = urlParams.get("search");
     if (searchTerm) {
@@ -124,11 +124,11 @@ function init() {
     }
 }
 
-// Función para renderizar productos filtrados
+// Función para renderizar productos filtrados.
 function renderFilteredProducts(filteredProducts) {
     let container = document.getElementById("productos");
     let noResultsMessage = document.getElementById("no-results-message");
-    container.innerHTML = ""; // Limpiar el contenedor
+    container.innerHTML = "";  
 
     if (filteredProducts.length === 0) {
         noResultsMessage.style.display = "block";
@@ -139,9 +139,9 @@ function renderFilteredProducts(filteredProducts) {
         });
 
         container.querySelectorAll(".containermayor").forEach((productElement, index) => {
-            // Redirigir al detalle del producto
+            // Redirigir al detalle del producto.
             productElement.addEventListener("click", (event) => {
-                // Verificar si el clic fue en el corazón o carrito
+                // Verificar si el clic fue en el corazón o carrito.
                 if (!event.target.classList.contains("corazonlogoproducto") && !event.target.classList.contains("carritologoproducto")) {
                     productSelected(filteredProducts[index].id);
                 }
@@ -159,10 +159,10 @@ function renderFilteredProducts(filteredProducts) {
     }
 }
 
-// Esperar a que los datos se carguen antes de inicializar
+// Esperar a que los datos se carguen antes de inicializar.
 document.addEventListener("dataLoaded", init);
 
-// Manejar el input de búsqueda
+// Manejar el input de búsqueda.
 document.getElementById("search-input").addEventListener("input", function () {
     const searchTerm = this.value.toLowerCase();
     const filteredProducts = products.filter((product) =>
@@ -172,10 +172,10 @@ document.getElementById("search-input").addEventListener("input", function () {
     renderFilteredProducts(filteredProducts);
 });
 
-// Restaurar productos "me gusta" al cargar la página
+// Restaurar productos "me gusta" al cargar la página.
 window.onload = restoreLikedProducts;
 
-// Función para obtener el correo del usuario
+// Función para obtener el correo del usuario.
 function getcorreoUsuario() {
     return localStorage.getItem("userEmail") || "guest";
 }

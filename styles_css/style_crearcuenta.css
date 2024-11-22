@@ -1,4 +1,3 @@
-
 body {
   font-family: "Kumbh Sans", sans-serif !important;
   margin: 0;
@@ -478,12 +477,12 @@ section {
 .btnregis:hover {
   background-color: #fff;
   color: #000; 
-  box-shadow: inset 0 0 0 1px #000; /* Agregar el borde interno */
+  box-shadow: inset 0 0 0 1px #000; 
 } 
 
 .btnregis:active {
-  transform: scale(0.95); /* Reducir el tamaño del botón al presionar */
-  box-shadow: inset 0 0 0 1px #000; /* Aumentar el borde interno al presionar */
+  transform: scale(0.95); 
+  box-shadow: inset 0 0 0 1px #000; 
   background-color: #cfcfcf;
   color: #000;
 }

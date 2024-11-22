@@ -4,7 +4,7 @@ body {
   padding: 0;
   color: #000000 !important;
   overflow-x: hidden;
-}
+} 
 
 html, body::-webkit-scrollbar {
   width: 8px !important;
@@ -442,8 +442,6 @@ a {
   text-decoration: none;
 }
 
-
-
 .like-button {
   transition: background-color 0.3s, transform 0.1s;
 }
@@ -458,18 +456,15 @@ a {
   background-color: darkred !important;
 }
 
-
 .like-button.liked:hover {
   background-color: rgb(255, 63, 63) !important;
   color: white;
   border: none;
 }
 
-
 .like-button.liked:hover img {
   filter: invert(0);
 }
-
 
 .like-button.liked img {
   filter: invert(0);

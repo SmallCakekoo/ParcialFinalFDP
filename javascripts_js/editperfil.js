@@ -16,10 +16,19 @@ document.addEventListener("DOMContentLoaded", function() {
     if (storedEmail) emailInput.value = visualEmail || storedEmail;
     if (storedLinkedin) linkedinInput.value = storedLinkedin;
 
-    document.querySelector('.btnsave').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+    // Cargar la imagen de perfil desde el Local Storage.
+    const savedProfilePicture = localStorage.getItem(`${storedEmail}_profilePicture`);
+    const profileImage = document.getElementById('profileImage');
+    if (savedProfilePicture) {
+        profileImage.src = savedProfilePicture;
+        console.log(`Imagen de perfil cargada desde Local Storage con clave: ${storedEmail}_profilePicture`);
+    }
 
-        const errorElement = document.getElementById('error-message'); // Elemento para mensajes de error
+    document.querySelector('.btnsave').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir el comportamiento por defecto del botón.
+
+        // Elemento para mensajes de error.
+        const errorElement = document.getElementById('error-message'); 
         if (!errorElement) {
             console.error("No se encontró el elemento para mostrar mensajes de error.");
             return;
@@ -27,20 +36,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const newPassword = newPasswordInput.value;
 
-        // Validar la contraseña
+        // Validar la contraseña.
         if (newPassword && newPassword.length < 6) {
             errorElement.textContent = "La nueva contraseña debe tener al menos 6 caracteres.";
             errorElement.style.color = "rgb(95, 0, 0)";
-            return; // No continúa con la lógica de guardado
+            return; // No continúa con la lógica de guardado.
         }
 
-        // Limpiar el mensaje de error si la validación pasa
+        // Limpiar el mensaje de error si la validación pasa.
         errorElement.textContent = "";
 
+        const newVisualEmail = emailInput.value;
+
+        // Actualizar la información del usuario en localStorage sin importar si se guarda uno solo.
         localStorage.setItem(`${storedEmail}_nombreUsuario`, usernameInput.value);
         localStorage.setItem(`${storedEmail}_descripcionUsuario`, descriptionInput.value);
         localStorage.setItem(`${storedEmail}_linkedinUsuario`, linkedinInput.value);
-        localStorage.setItem(`${storedEmail}_visualEmail`, emailInput.value);
+        localStorage.setItem(`${storedEmail}_visualEmail`, newVisualEmail);
 
         if (newPassword) {
             const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -54,9 +66,33 @@ document.addEventListener("DOMContentLoaded", function() {
         alert("Cambios guardados exitosamente.");
         window.location.href = "perfil.html";
     });
+
+    // Obtener elementos (esto es para importar la foto de perfil).
+    const fileInput = document.getElementById('file-input');
+
+    // Escuchar el cambio del input de archivo.
+    fileInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            // Cargar la imagen seleccionada.
+            reader.onload = function (e) {
+                const imageData = e.target.result;
+                profileImage.src = imageData;
+
+                // Guardar la imagen en Local Storage por usuario.
+                localStorage.setItem(`${storedEmail}_profilePicture`, imageData);
+                console.log(`Imagen guardada en Local Storage con clave: ${storedEmail}_profilePicture`);
+            };
+
+            reader.readAsDataURL(file);  
+        }
+    });
 });
 
-// Función para cerrar sesión
+// Función para cerrar sesión.
 function cerrarSesion() {
     localStorage.removeItem('usuarioLogueado');
     localStorage.removeItem('userEmail');

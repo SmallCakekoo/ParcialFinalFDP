@@ -244,18 +244,15 @@ section {
     border: #e0e0e0 solid 1px !important;
     box-shadow: -27px 22px 30px -8px rgba(0, 0, 0, 0.031);
     max-width: 70% !important;
-    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-    /* Cambiado a ease-in-out */
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out; 
     filter: brightness(1.1);
     mix-blend-mode: multiply;
     border-radius: 30px !important;
 }
 
 .imgproduct:hover {
-    transform: scale(1.03);
-    /* Escala reducida para un efecto más sutil */
-    box-shadow: -27px 22px 40px -8px rgba(0, 0, 0, 0.1);
-    /* Sombra más suave */
+    transform: scale(1.03); 
+    box-shadow: -27px 22px 40px -8px rgba(0, 0, 0, 0.1); 
 }
 
 
@@ -294,14 +291,14 @@ section {
 }
 
 .like-button {
-    background-color: #ffffff !important; /* Color de fondo por defecto */
-    color: #000000 !important; /* Color de texto por defecto */
+    background-color: #ffffff !important; 
+    color: #000000 !important; 
     border: 1px solid #000000 !important;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s, transform 0.1s, color 0.3s; /* Añadir color a la transición */
+    transition: background-color 0.3s, transform 0.1s, color 0.3s;  
 }
 
 .like-button.liked {
@@ -311,12 +308,12 @@ section {
 }
 
 .like-button.liked img {
-    filter: invert(1) !important; /* Invertir el color de la imagen */
+    filter: invert(1) !important;  
 }
 
 .like-button:active {
     transform: scale(0.95);
-    background-color: darkred !important; /* Color cuando está presionado */
+    background-color: darkred !important; 
 }
 
 .like-button.liked:hover {
@@ -349,5 +346,26 @@ section {
 }
 
 .btnadf:hover .likeimg {
-    filter: invert(1) !important; /* Invertir el color de la imagen */
+    filter: invert(1) !important;  
+}
+
+.back-arrow {
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #000000;
+    margin-top: 1px;
+    margin-left: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+}
+
+.back-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
 }

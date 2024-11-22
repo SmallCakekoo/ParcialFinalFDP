@@ -6,7 +6,7 @@ const errorPasswordDisplay = document.querySelector('.errorpassword');
 
 form.addEventListener('submit', e => {
     e.preventDefault();
-    validateInputs(); // Llama a la función de validación
+    validateInputs();
 });
 
 const setError = (element, message) => {
@@ -31,34 +31,34 @@ const validateInputs = () => {
     const passwordValue = password.value.trim();
     let isValid = true;
 
-    // Obtener la lista de usuarios del localStorage
+    // Obtener la lista de usuarios del localStorage.
     const users = JSON.parse(localStorage.getItem('users')) || [];
 
-    // Verificar si el usuario existe y la contraseña es correcta
+    // Verificar si el usuario existe y la contraseña es correcta.
     const user = users.find(user => user.email === emailValue && user.password === passwordValue);
 
-    // Validación del email
+    // Validación del email.
     if (emailValue === '') {
         setError(errorEmailDisplay, 'Correo requerido');
         isValid = false;
     } else if (!user) {
         setError(errorEmailDisplay, 'Correo o contraseña incorrectos');
-        isValid = false; // Si no existe el usuario, marca como inválido
+        isValid = false; // Si no existe el usuario, marca como inválido.
     }
 
-    // Validación de la contraseña
+    // Validación de la contraseña.
     if (passwordValue === '') {
         setError(errorPasswordDisplay, 'Contraseña requerida');
         isValid = false;
     } else if (user && passwordValue !== user.password) {
         setError(errorPasswordDisplay, 'Contraseña incorrecta');
-        isValid = false; // Si la contraseña no coincide, marca como inválido
+        isValid = false; // Si la contraseña no coincide, marca como inválido.
     }
 
-    // Si ambos son válidos, redirige y almacena el estado de sesión
+    // Si ambos son válidos, redirige y almacena el estado de sesión.
     if (isValid) {
-        localStorage.setItem("usuarioLogueado", 'true'); // Almacena el estado de sesión
-        localStorage.setItem("userEmail", emailValue); // Almacena el correo del usuario logueado
-        window.location.href = "perfil.html"; // Redirige al perfil
+        localStorage.setItem("usuarioLogueado", 'true'); // Almacena el estado de sesión.
+        localStorage.setItem("userEmail", emailValue); // Almacena el correo del usuario logueado.
+        window.location.href = "perfil.html"; // Redirige al perfil.
     }
 };

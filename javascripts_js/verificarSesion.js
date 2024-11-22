@@ -20,15 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
             heartIcon.classList.remove('activo');
         });
     }
-    // Maneja el clic en el icono de usuario
+    // Maneja el clic en el icono de usuario.
     userIconLink.addEventListener('click', (e) => {
-        e.preventDefault(); // Evita el comportamiento por defecto del enlace
+        e.preventDefault(); // Evita el comportamiento por defecto del enlace.
         if (usuarioLogueado) {
-            // Si está logueado, redirige al perfil
+            // Si está logueado, redirige al perfil.
             window.location.href = 'perfil.html';
         } else {
-            // Si no está logueado, redirige a la página de inicio de sesión
+            // Si no está logueado, redirige a la página de inicio de sesión.
             window.location.href = 'iniciarseccion.html';
         }
     });
 });
+
+
+// Este documentos se inicia al comienzo de los HTML y en perfil.js debe ser llamado.
