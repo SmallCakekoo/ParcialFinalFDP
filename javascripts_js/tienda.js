@@ -51,6 +51,9 @@ function renderAllProducts() {
             likeProduct(products[index].id, event);
         });
     });
+
+    // Restaurar el estado de los productos "me gusta"
+    restoreLikedProducts();
 }
 
 // Función que redirige a la página de detalle del producto seleccionado
@@ -73,8 +76,8 @@ function likeProduct(id, event) {
     heartIcon.classList.toggle("activo");
 
     // Gestionar almacenamiento local con la clave específica
-    const userEmail = getUserEmail(); // Asegúrate de tener una función para obtener el email del usuario
-    const storageKey = `${userEmail}_likedProducts`;
+    const correoUsuario = getcorreoUsuario(); // Asegúrate de tener una función para obtener el email del usuario
+    const storageKey = `${correoUsuario}_likedProducts`;
 
     let likedProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
     if (likedProducts.includes(id)) {
@@ -88,23 +91,23 @@ function likeProduct(id, event) {
 
 // Función que muestra el estado de los productos "me gusta" previamente guardados
 function restoreLikedProducts() {
-    const userEmail = getUserEmail(); // Obtener el email del usuario
-    const storageKey = `${userEmail}_likedProducts`;
-    const likedProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
-
-    likedProducts.forEach((id) => {
-        const heartIcon = document.querySelector(`.corazonlogoproducto[data-id="${id}"]`);
-        if (heartIcon) {
-            heartIcon.classList.add("activo");
-        }
-    });
+    const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+    if (usuarioLogueado) {
+        const correoUsuario = getcorreoUsuario(); // Obtener el correo del usuario dentro de la función
+        const likedProducts = JSON.parse(localStorage.getItem(`${correoUsuario}_likedProducts`)) || [];
+        likedProducts.forEach((id) => {
+            const heartIcon = document.querySelector(`.corazonlogoproducto[data-id="${id}"]`);
+            if (heartIcon) {
+                heartIcon.classList.add("activo");
+            }
+        });
+    }
 }
 
 // Función para inicializar la página
 function init() {
     parseDataToProducts();
     renderAllProducts();
-    restoreLikedProducts();
 
     // Manejar búsqueda si está en la URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -150,6 +153,9 @@ function renderFilteredProducts(filteredProducts) {
                 likeProduct(filteredProducts[index].id, event);
             });
         });
+
+        // Restaurar el estado de los productos "me gusta"
+        restoreLikedProducts();
     }
 }
 
@@ -170,6 +176,6 @@ document.getElementById("search-input").addEventListener("input", function () {
 window.onload = restoreLikedProducts;
 
 // Función para obtener el correo del usuario
-function getUserEmail() {
+function getcorreoUsuario() {
     return localStorage.getItem("userEmail") || "guest";
 }

@@ -58,7 +58,7 @@ const validateInputs = () => {
     // Si ambos son válidos, redirige y almacena el estado de sesión
     if (isValid) {
         localStorage.setItem("usuarioLogueado", 'true'); // Almacena el estado de sesión
-        localStorage.setItem("userEmail", emailValue); // Almacena el correo (opcional)
+        localStorage.setItem("userEmail", emailValue); // Almacena el correo del usuario logueado
         window.location.href = "perfil.html"; // Redirige al perfil
     }
 };

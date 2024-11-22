@@ -1,35 +1,64 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Selección de elementos del formulario de edición
     const usernameInput = document.getElementById('username');
     const descriptionInput = document.getElementById('description');
     const emailInput = document.getElementById('email');
     const linkedinInput = document.getElementById('linkedin');
+    const newPasswordInput = document.getElementById('new-password'); 
 
-    // Cargar datos desde el localStorage al cargar la página
-    const storedUsername = localStorage.getItem('nombreUsuario');
-    const storedDescription = localStorage.getItem('descripcionUsuario');
-    const storedEmail = localStorage.getItem('correoUsuario');
-    const storedLinkedin = localStorage.getItem('linkedinUsuario');
+    const storedEmail = localStorage.getItem('userEmail');
+    const storedUsername = localStorage.getItem(`${storedEmail}_nombreUsuario`);
+    const storedDescription = localStorage.getItem(`${storedEmail}_descripcionUsuario`);
+    const storedLinkedin = localStorage.getItem(`${storedEmail}_linkedinUsuario`);
+    const visualEmail = localStorage.getItem(`${storedEmail}_visualEmail`);
 
     if (storedUsername) usernameInput.value = storedUsername;
     if (storedDescription) descriptionInput.value = storedDescription;
-    if (storedEmail) emailInput.value = storedEmail;
+    if (storedEmail) emailInput.value = visualEmail || storedEmail;
     if (storedLinkedin) linkedinInput.value = storedLinkedin;
 
-    // Guardar cambios en el localStorage cuando se hace clic en el botón "Guardar cambios"
-    document.querySelector('.btnsave').addEventListener('click', function() {
-        localStorage.setItem('nombreUsuario', usernameInput.value);
-        localStorage.setItem('descripcionUsuario', descriptionInput.value);
-        localStorage.setItem('correoUsuario', emailInput.value);
-        localStorage.setItem('linkedinUsuario', linkedinInput.value);
-        
+    document.querySelector('.btnsave').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+
+        const errorElement = document.getElementById('error-message'); // Elemento para mensajes de error
+        if (!errorElement) {
+            console.error("No se encontró el elemento para mostrar mensajes de error.");
+            return;
+        }
+
+        const newPassword = newPasswordInput.value;
+
+        // Validar la contraseña
+        if (newPassword && newPassword.length < 6) {
+            errorElement.textContent = "La nueva contraseña debe tener al menos 6 caracteres.";
+            errorElement.style.color = "rgb(95, 0, 0)";
+            return; // No continúa con la lógica de guardado
+        }
+
+        // Limpiar el mensaje de error si la validación pasa
+        errorElement.textContent = "";
+
+        localStorage.setItem(`${storedEmail}_nombreUsuario`, usernameInput.value);
+        localStorage.setItem(`${storedEmail}_descripcionUsuario`, descriptionInput.value);
+        localStorage.setItem(`${storedEmail}_linkedinUsuario`, linkedinInput.value);
+        localStorage.setItem(`${storedEmail}_visualEmail`, emailInput.value);
+
+        if (newPassword) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(user => user.email === storedEmail);
+            if (userIndex !== -1) {
+                users[userIndex].password = newPassword;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+
         alert("Cambios guardados exitosamente.");
-        window.location.href = "perfil.html"; // Redirigir a la página de perfil después de guardar
+        window.location.href = "perfil.html";
     });
 });
 
 // Función para cerrar sesión
 function cerrarSesion() {
-    localStorage.removeItem('usuarioLogueado'); // Elimina el indicador de sesión
-    window.location.href = 'index.html'; // Redirige a la página principal
+    localStorage.removeItem('usuarioLogueado');
+    localStorage.removeItem('userEmail');
+    window.location.href = 'index.html';
 }

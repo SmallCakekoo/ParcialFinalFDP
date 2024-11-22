@@ -5,7 +5,7 @@ const newPassword = document.getElementById('newPassword'); // Campo de contrase
 const repeatPassword = document.getElementById('repeatPassword'); // Campo de repetir contraseña
 
 // Selección de elementos donde se mostrarán los mensajes de error
-const errorUsername = document.querySelector('.errorusername'); 
+const errorUsername = document.querySelector('.errorusername');
 const errorNewEmail = document.querySelector('.errornewEmail');
 const errorNewPassword = document.querySelector('.errornewPassword');
 const errorRepeatPassword = document.querySelector('.errorrepeatPassword');
@@ -41,7 +41,6 @@ function createAccount() {
     const emailValue = newEmail.value.trim();
     const passwordValue = newPassword.value.trim();
     const repeatPasswordValue = repeatPassword.value.trim();
-
     let isValid = true; // Variable para verificar si todos los campos son válidos
 
     // Validación del nombre de usuario
@@ -64,7 +63,7 @@ function createAccount() {
         setError(errorNewPassword, 'Contraseña requerida'); // Error si la contraseña está vacía
         isValid = false;
     } else if (passwordValue.length < 6) { // Verifica si la contraseña tiene al menos 6 caracteres
-        setError(errorNewPassword, 'La contraseña debe tener al menos 6 caracteres'); 
+        setError(errorNewPassword, 'La contraseña debe tener al menos 6 caracteres');
         isValid = false;
     }
 
@@ -81,26 +80,32 @@ function createAccount() {
     if (isValid) {
         // Obtiene la lista de usuarios almacenados en el localStorage o inicializa un array vacío
         let users = JSON.parse(localStorage.getItem('users')) || [];
-    
+
+        // Verifica si el correo ya está registrado
+        if (users.some(user => user.email === emailValue)) {
+            setError(errorNewEmail, 'El correo ya está registrado');
+            return;
+        }
+
         // Agrega el nuevo usuario al array
         users.push({
             username: usernameValue, // Agrega el nombre de usuario
             email: emailValue,       // Agrega el correo electrónico
-            password: passwordValue   // Nota: no es seguro almacenar contraseñas sin cifrado
+            password: passwordValue  // Nota: no es seguro almacenar contraseñas sin cifrado
         });
-    
+
         // Guarda el array actualizado en el localStorage
         localStorage.setItem('users', JSON.stringify(users));
-    
+
         // Guarda el nombre de usuario y correo en el localStorage para futuras referencias
-        localStorage.setItem('nombreUsuario', usernameValue);
-        localStorage.setItem('correoUsuario', emailValue);
-    
+        localStorage.setItem(`${emailValue}_nombreUsuario`, usernameValue);
+        localStorage.setItem(`${emailValue}_correoUsuario`, emailValue);
+
         // Marca al usuario como logueado en el localStorage
         localStorage.setItem('usuarioLogueado', 'true');
-    
+        localStorage.setItem('userEmail', emailValue);
+
         alert("Cuenta creada exitosamente"); // Muestra un mensaje de éxito
         window.location = "perfil.html"; // Redirige al perfil del usuario después del registro
     }
 }
-

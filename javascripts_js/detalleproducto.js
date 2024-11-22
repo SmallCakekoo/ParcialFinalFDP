@@ -67,12 +67,14 @@ function loadProductDetails() {
             createProductButtons(productId);
 
             // Verificar si el producto está en la lista de productos "me gusta"
-            const userEmail = getUserEmail();
-            let likedProducts = JSON.parse(localStorage.getItem(`${userEmail}_likedProducts`)) || [];
-            
-            const likeButton = document.getElementById(`likeButton_${productId}`);
-            if (likeButton && likedProducts.includes(parseInt(productId))) {
-                likeButton.classList.add('liked'); // Activar el botón si el producto está en la lista
+            const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+            if (usuarioLogueado) {
+                const correoUsuario = getcorreoUsuario(); // Obtener el correo del usuario dentro de la función
+                const likedProducts = JSON.parse(localStorage.getItem(`${correoUsuario}_likedProducts`)) || [];
+                const likeButton = document.getElementById(`likeButton_${productId}`);
+                if (likeButton && likedProducts.includes(parseInt(productId))) {
+                    likeButton.classList.add('liked'); // Activar el botón si el producto está en la lista
+                }
             }
         } else {
             console.error("Producto no encontrado");
@@ -84,6 +86,12 @@ function loadProductDetails() {
 
 // Función para manejar el "me gusta" de un producto
 function likeProduct(event) {
+    const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+    if (!usuarioLogueado) {
+        window.location.href = 'iniciarseccion.html';
+        return; 
+    }
+
     const button = event.currentTarget; // Obtener el botón que se hizo clic
     const productId = button.getAttribute('data-product-id'); // Recuperar el productId desde el atributo data-*
 
@@ -93,29 +101,28 @@ function likeProduct(event) {
     // Alternar la clase 'liked' para cambiar el estado visual del botón (fondo rojo)
     button.classList.toggle('liked');
 
-    // Obtener el email del usuario
-    const userEmail = getUserEmail();
-
     // Obtener la lista de productos "me gusta" del localStorage
-    let likedProducts = JSON.parse(localStorage.getItem(`${userEmail}_likedProducts`)) || [];
+    const correoUsuario = getcorreoUsuario(); // Obtener el correo del usuario dentro de la función
+    let likedProducts = JSON.parse(localStorage.getItem(`${correoUsuario}_likedProducts`)) || [];
 
     // Si el botón tiene la clase 'liked', agregar el producto a la lista de "me gusta"
     if (button.classList.contains('liked')) {
-        // Agregar el producto a la lista de productos "me gusta"
-        likedProducts.push(parseInt(productId));
+        if (!likedProducts.includes(parseInt(productId))) {
+            likedProducts.push(parseInt(productId));
+        }
     } else {
         // Si el botón no tiene la clase 'liked', eliminar el producto de la lista
         likedProducts = likedProducts.filter(id => id !== parseInt(productId));
     }
 
     // Guardar la lista actualizada en el localStorage
-    localStorage.setItem(`${userEmail}_likedProducts`, JSON.stringify(likedProducts));
-}
-
-// Función para obtener el correo del usuario desde el localStorage
-function getUserEmail() {
-    return localStorage.getItem("userEmail") || "guest"; // Si no hay email, devuelve "guest"
+    localStorage.setItem(`${correoUsuario}_likedProducts`, JSON.stringify(likedProducts));
 }
 
 // Espera a que los datos estén listos antes de cargar los detalles del producto
 document.addEventListener('dataLoaded', loadProductDetails);
+
+// Función para obtener el correo del usuario
+function getcorreoUsuario() {
+    return localStorage.getItem("userEmail") || "guest";
+}

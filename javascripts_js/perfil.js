@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Espera a que los datos se carguen antes de continuar
     document.addEventListener('dataLoaded', () => {
         // Obtiene el email del usuario
-        const userEmail = getUserEmail();
-        const storageKey = `${userEmail}_likedProducts`;
+        const correoUsuario = getUserEmail();
+        const storageKey = `${correoUsuario}_likedProducts`;
 
         // Obtiene los productos "liked" desde el localStorage
         const likedProductIds = JSON.parse(localStorage.getItem(storageKey)) || [];
@@ -44,10 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const linkedinDisplay = document.getElementById('linkedinDisplay');
 
         // Obtiene los datos del usuario desde localStorage
-        const nombreUsuario = localStorage.getItem('nombreUsuario');
-        const descripcionUsuario = localStorage.getItem('descripcionUsuario');
-        const correoUsuario = localStorage.getItem('correoUsuario');
-        const linkedinUsuario = localStorage.getItem('linkedinUsuario');
+        const nombreUsuario = localStorage.getItem(`${correoUsuario}_nombreUsuario`);
+        const descripcionUsuario = localStorage.getItem(`${correoUsuario}_descripcionUsuario`);
+        const linkedinUsuario = localStorage.getItem(`${correoUsuario}_linkedinUsuario`);
 
         // Muestra los datos del usuario si existen en localStorage
         if (nombreUsuario) usernameDisplay.innerText = nombreUsuario;
@@ -74,6 +73,16 @@ function verificarSesion() {
 
 // Función para obtener el email del usuario (debes implementar esta función según tu lógica)
 function getUserEmail() {
-    // Implementa la lógica para obtener el email del usuario
-    return localStorage.getItem('correoUsuario'); // Ejemplo: obtener el email del localStorage
+    return localStorage.getItem('userEmail'); // Ejemplo: obtener el email del localStorage
+}
+
+function closeSection() {
+    const correoUsuario = localStorage.getItem('userEmail');
+    if (correoUsuario) {
+        localStorage.removeItem(`${correoUsuario}_likedProducts`);
+        console.log(`Se han eliminado los productos "me gusta" para el usuario: ${correoUsuario}`);
+    }
+    localStorage.removeItem('usuarioLogueado');
+    localStorage.removeItem('userEmail');
+    window.location.href = 'index.html';
 }

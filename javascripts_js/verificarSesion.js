@@ -1,12 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     const userIconLink = document.getElementById('userIconLink');
-
+    const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+    const correoUsuario = localStorage.getItem('userEmail');
+    if (usuarioLogueado && correoUsuario) {
+        const userLikes = JSON.parse(localStorage.getItem(`${correoUsuario}_likedProducts`)) || [];
+        const heartIcons = document.querySelectorAll('.corazonlogoproducto');
+        heartIcons.forEach(heartIcon => {
+            const productId = heartIcon.dataset.productId;
+            if (userLikes.includes(parseInt(productId))) {
+                heartIcon.classList.add('activo');
+            } else {
+                heartIcon.classList.remove('activo');
+            }
+        });
+    } else {
+        // Si no hay usuario logueado, limpia los estilos de los íconos "activo"
+        const heartIcons = document.querySelectorAll('.corazonlogoproducto');
+        heartIcons.forEach(heartIcon => {
+            heartIcon.classList.remove('activo');
+        });
+    }
+    // Maneja el clic en el icono de usuario
     userIconLink.addEventListener('click', (e) => {
         e.preventDefault(); // Evita el comportamiento por defecto del enlace
-
-        const usuarioLogueado = localStorage.getItem('usuarioLogueado');
-
-        // Verifica si el usuario está logueado
         if (usuarioLogueado) {
             // Si está logueado, redirige al perfil
             window.location.href = 'perfil.html';
